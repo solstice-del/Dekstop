@@ -1,0 +1,1721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+               maximum-scale=1.0, user-scalable=no">
+
+<title>private.exe</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  -webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+  width:100%;
+  height:100%;
+  overflow:hidden;
+  font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+  background:#c8aaa3;
+  color:#665957;
+}
+
+/* =========================
+   GRAIN
+========================= */
+
+body:after{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:9999;
+  opacity:.08;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E");
+}
+
+/* =========================
+   LOCK SCREEN
+========================= */
+
+#lockScreen{
+  position:fixed;
+  inset:0;
+  z-index:5000;
+  background:#c8aaa3;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  transition:transform .22s ease-out;
+  touch-action:none;
+}
+
+.lock-time{
+  margin-top:15vh;
+  font-size:clamp(42px,11vw,72px);
+  font-weight:300;
+  color:#fff;
+  letter-spacing:-3px;
+}
+
+.lock-date{
+  margin-top:10px;
+  color:#fff;
+  font-size:15px;
+}
+
+.lock-small{
+  margin-top:12px;
+  color:#f8efed;
+  font-size:11px;
+  letter-spacing:2px;
+}
+
+.lock-icon{
+  margin-top:28px;
+  width:25px;
+  height:30px;
+  position:relative;
+}
+
+.lock-body{
+  position:absolute;
+  bottom:0;
+  left:3px;
+  width:19px;
+  height:17px;
+  border:2px solid #fff;
+  border-radius:4px;
+}
+
+.lock-shackle{
+  position:absolute;
+  left:7px;
+  top:0;
+  width:11px;
+  height:13px;
+  border:2px solid #fff;
+  border-bottom:0;
+  border-radius:8px 8px 0 0;
+}
+
+.lock-photo{
+  position:absolute;
+  width:205px;
+  padding:10px 10px 25px;
+  background:#f9f4f1;
+  bottom:145px;
+  transform:rotate(-4deg);
+  box-shadow:0 12px 25px rgba(70,45,40,.12);
+}
+
+.lock-photo img{
+  display:block;
+  width:100%;
+  height:190px;
+  object-fit:cover;
+}
+
+.swipe-text{
+  position:absolute;
+  bottom:105px;
+  color:#fff;
+  font-size:11px;
+  letter-spacing:3px;
+}
+
+.swipe-arrow{
+  position:absolute;
+  bottom:68px;
+  width:32px;
+  height:32px;
+  border-left:3px solid #fff;
+  border-top:3px solid #fff;
+  transform:rotate(45deg);
+  animation:arrowMove 1.2s infinite ease-in-out;
+}
+
+@keyframes arrowMove{
+  0%,100%{transform:translateY(5px) rotate(45deg);opacity:.5}
+  50%{transform:translateY(-5px) rotate(45deg);opacity:1}
+}
+
+/* =========================
+   DESKTOP
+========================= */
+
+#desktop{
+  position:fixed;
+  inset:0;
+  background:#c8aaa3;
+  overflow:hidden;
+}
+
+/* =========================
+   FLOATING DUST
+========================= */
+
+.dust{
+  position:absolute;
+  width:5px;
+  height:5px;
+  background:rgba(255,255,255,.35);
+  border-radius:50%;
+  animation:float 7s infinite ease-in-out;
+}
+
+.d1{left:43%;top:62%;animation-delay:0s}
+.d2{left:84%;top:57%;animation-delay:2s}
+.d3{left:64%;top:78%;animation-delay:4s}
+.d4{left:21%;top:84%;animation-delay:1s}
+.d5{left:91%;top:38%;animation-delay:3s}
+
+@keyframes float{
+  0%,100%{
+    transform:translateY(0);
+    opacity:.2;
+  }
+  50%{
+    transform:translateY(-16px);
+    opacity:.55;
+  }
+}
+
+/* =========================
+   DESKTOP ICONS
+========================= */
+
+.desktop-icons{
+  position:absolute;
+  top:38px;
+  left:28px;
+
+  display:grid;
+  grid-template-columns:88px 88px;
+  grid-auto-rows:105px;
+
+  z-index:10;
+}
+
+.desktop-icon{
+  width:76px;
+  text-align:center;
+  cursor:pointer;
+  user-select:none;
+}
+
+.icon-box{
+  width:76px;
+  height:76px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  border-radius:23px;
+  background:rgba(255,247,244,.72);
+  border:1px solid rgba(255,255,255,.75);
+
+  box-shadow:
+    0 8px 18px rgba(75,48,44,.06),
+    inset 0 1px rgba(255,255,255,.5);
+
+  font-size:39px;
+
+  transition:
+    transform .12s ease,
+    background .12s ease;
+}
+
+.desktop-icon:active .icon-box{
+  transform:scale(.93);
+}
+
+.icon-name{
+  margin-top:7px;
+  color:#fff;
+  font-size:13px;
+  text-shadow:0 1px 3px rgba(70,45,40,.2);
+  white-space:nowrap;
+}
+
+/* icon positions */
+
+.desktop-icons .desktop-icon:nth-child(1){
+  grid-column:1;
+  grid-row:1;
+}
+
+.desktop-icons .desktop-icon:nth-child(2){
+  grid-column:2;
+  grid-row:1;
+}
+
+.desktop-icons .desktop-icon:nth-child(3){
+  grid-column:1;
+  grid-row:2;
+}
+
+.desktop-icons .desktop-icon:nth-child(4){
+  grid-column:1;
+  grid-row:3;
+}
+
+.desktop-icons .desktop-icon:nth-child(5){
+  grid-column:1;
+  grid-row:4;
+}
+
+.desktop-icons .desktop-icon:nth-child(6){
+  grid-column:1;
+  grid-row:5;
+}
+
+.desktop-icons .desktop-icon:nth-child(7){
+  grid-column:1;
+  grid-row:6;
+}
+
+.desktop-icons .desktop-icon:nth-child(8){
+  grid-column:1;
+  grid-row:7;
+}
+
+/* =========================
+   TODAY WIDGET
+========================= */
+
+.today-widget{
+  position:absolute;
+  top:30px;
+  right:28px;
+
+  width:250px;
+  padding:17px 20px;
+
+  background:rgba(247,239,235,.78);
+  border:1px solid rgba(255,255,255,.75);
+  border-radius:25px;
+
+  box-shadow:0 14px 30px rgba(70,45,40,.08);
+
+  z-index:4;
+}
+
+.today-title{
+  font-size:11px;
+  letter-spacing:3px;
+  color:#88736f;
+}
+
+.today-date{
+  margin-top:7px;
+  font-size:19px;
+  color:#77635f;
+}
+
+.today-line{
+  height:1px;
+  background:rgba(120,90,84,.18);
+  margin:13px 0;
+}
+
+.today-row{
+  display:flex;
+  justify-content:space-between;
+  margin-top:8px;
+  font-size:12px;
+}
+
+.today-row span:last-child{
+  font-weight:bold;
+}
+
+/* =========================
+   POLAROID
+========================= */
+
+.polaroid{
+  position:absolute;
+
+  right:75px;
+  top:255px;
+
+  width:175px;
+  padding:9px 9px 27px;
+
+  background:#faf6f3;
+
+  transform:rotate(4deg);
+
+  box-shadow:
+    0 14px 25px rgba(70,45,40,.12);
+
+  z-index:3;
+}
+
+.polaroid img{
+  display:block;
+  width:100%;
+  height:145px;
+  object-fit:cover;
+}
+
+/* =========================
+   SYSTEM STATUS
+========================= */
+
+.system-widget{
+  position:absolute;
+
+  right:28px;
+  bottom:90px;
+
+  width:250px;
+  padding:16px 20px;
+
+  background:rgba(247,239,235,.78);
+  border:1px solid rgba(255,255,255,.75);
+  border-radius:23px;
+
+  box-shadow:0 14px 30px rgba(70,45,40,.08);
+
+  z-index:4;
+}
+
+.system-title{
+  font-size:11px;
+  letter-spacing:3px;
+  margin-bottom:10px;
+}
+
+.status-row{
+  display:flex;
+  justify-content:space-between;
+  font-size:12px;
+  margin:7px 0;
+}
+
+.status-bar{
+  width:100%;
+  height:5px;
+  background:rgba(130,100,94,.15);
+  border-radius:10px;
+  overflow:hidden;
+}
+
+.status-fill{
+  height:100%;
+  width:87%;
+  background:#9e817b;
+  border-radius:10px;
+}
+
+.status-fill.storage{
+  width:64%;
+}
+
+/* =========================
+   TASKBAR
+========================= */
+
+.taskbar{
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+
+  height:68px;
+
+  background:rgba(116,91,86,.42);
+  backdrop-filter:blur(10px);
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 24px;
+
+  z-index:100;
+}
+
+.start-btn{
+  width:48px;
+  height:48px;
+
+  border:0;
+  border-radius:18px;
+
+  background:rgba(255,245,242,.28);
+  color:#fff;
+
+  font-size:19px;
+}
+
+.taskbar-clock{
+  color:#fff;
+  text-align:right;
+  font-size:12px;
+  line-height:1.4;
+}
+
+/* =========================
+   WINDOWS
+========================= */
+
+.window{
+  position:absolute;
+
+  width:min(620px,85vw);
+  max-height:75vh;
+
+  left:50%;
+  top:50%;
+
+  transform:translate(-50%,-50%);
+
+  background:#f8f0ed;
+
+  border-radius:24px;
+
+  overflow:hidden;
+
+  box-shadow:
+    0 25px 60px rgba(65,42,38,.22);
+
+  display:none;
+
+  z-index:1000;
+}
+
+.window.show{
+  display:block;
+}
+
+.window-header{
+  height:54px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:0 20px;
+
+  background:#eee0dc;
+  font-weight:bold;
+}
+
+.window-buttons{
+  display:flex;
+  gap:20px;
+}
+
+.window-buttons button{
+  border:0;
+  background:none;
+  font-size:18px;
+  color:#75615d;
+}
+
+.window-content{
+  padding:30px;
+  overflow:auto;
+  max-height:calc(75vh - 54px);
+}
+
+.window-content h2{
+  font-size:28px;
+  margin-bottom:28px;
+}
+
+.window-content p{
+  font-size:17px;
+  line-height:1.55;
+}
+
+/* =========================
+   FILES
+========================= */
+
+.file-item{
+  padding:16px;
+  background:#eee1dd;
+  border-radius:15px;
+  margin-bottom:10px;
+  cursor:pointer;
+}
+
+/* =========================
+   GALLERY
+========================= */
+
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+
+.gallery-card{
+  background:#fff;
+  padding:6px;
+  border-radius:10px;
+}
+
+.gallery-card img{
+  width:100%;
+  height:180px;
+  object-fit:cover;
+  border-radius:6px;
+  display:block;
+}
+
+/* =========================
+   LOVE LETTER
+========================= */
+
+.love-letter h2{
+  font-size:29px;
+  margin-bottom:24px;
+}
+
+.love-letter p{
+  font-size:17px;
+  line-height:1.65;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat-profile{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:20px;
+}
+
+.chat-avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.chat-name{
+  font-weight:bold;
+}
+
+.chat-bubble{
+  width:max-content;
+  max-width:80%;
+  background:#eadbd7;
+  padding:11px 15px;
+  border-radius:16px;
+  margin:8px 0;
+}
+
+/* =========================
+   NOTIFICATION
+========================= */
+
+.notification{
+  position:absolute;
+
+  top:25px;
+  left:50%;
+
+  transform:translateX(-50%) translateY(-130px);
+
+  width:min(340px,90vw);
+
+  padding:13px;
+
+  display:flex;
+  align-items:center;
+  gap:11px;
+
+  background:rgba(250,244,241,.96);
+
+  border:1px solid rgba(255,255,255,.8);
+
+  border-radius:17px;
+
+  box-shadow:0 15px 35px rgba(70,45,40,.2);
+
+  z-index:3000;
+
+  transition:transform .2s ease;
+}
+
+.notification.show{
+  transform:translateX(-50%) translateY(0);
+}
+
+.notification-avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  object-fit:cover;
+}
+
+.notification-body{
+  flex:1;
+}
+
+.notification-name{
+  font-weight:bold;
+  font-size:13px;
+}
+
+.notification-text{
+  margin-top:3px;
+  font-size:12px;
+}
+
+.notification-close{
+  border:0;
+  background:none;
+  font-size:19px;
+  color:#77635f;
+}
+
+/* =========================
+   DOODLES
+========================= */
+
+.doodle{
+  position:absolute;
+  color:rgba(255,255,255,.42);
+  font-size:28px;
+  z-index:2;
+  pointer-events:none;
+}
+
+.doodle.one{
+  right:33%;
+  top:47%;
+  transform:rotate(12deg);
+}
+
+.doodle.two{
+  right:10%;
+  top:75%;
+  transform:rotate(-15deg);
+  font-size:22px;
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:700px){
+
+  #desktop{
+    overflow:hidden;
+  }
+
+  .desktop-icons{
+    top:28px;
+    left:18px;
+
+    grid-template-columns:64px 64px;
+    grid-auto-rows:82px;
+  }
+
+  .desktop-icon{
+    width:54px;
+  }
+
+  .icon-box{
+    width:54px;
+    height:54px;
+    border-radius:17px;
+    font-size:28px;
+  }
+
+  .icon-name{
+    margin-top:6px;
+    font-size:11px;
+  }
+
+  .today-widget{
+    top:20px;
+    right:16px;
+    width:145px;
+    padding:12px 13px;
+    border-radius:18px;
+  }
+
+  .today-title{
+    font-size:10px;
+  }
+
+  .today-date{
+    font-size:16px;
+    margin-top:4px;
+  }
+
+  .today-line{
+    margin:8px 0;
+  }
+
+  .today-row{
+    font-size:10px;
+    margin-top:6px;
+  }
+
+  .polaroid{
+    top:205px;
+    right:18px;
+    width:112px;
+    padding:7px 7px 20px;
+  }
+
+  .polaroid img{
+    height:94px;
+  }
+
+  .system-widget{
+    right:16px;
+    bottom:75px;
+    width:145px;
+    padding:11px 13px;
+    border-radius:17px;
+  }
+
+  .system-title{
+    font-size:10px;
+    margin-bottom:7px;
+  }
+
+  .status-row{
+    font-size:10px;
+    margin:5px 0;
+  }
+
+  .status-bar{
+    height:4px;
+  }
+
+  .taskbar{
+    height:55px;
+    padding:0 14px;
+  }
+
+  .start-btn{
+    width:38px;
+    height:38px;
+    border-radius:15px;
+    font-size:15px;
+  }
+
+  .taskbar-clock{
+    font-size:10px;
+  }
+
+  .window{
+    width:90vw;
+    max-height:72vh;
+    border-radius:20px;
+  }
+
+  .window-content{
+    padding:24px;
+  }
+
+  .gallery-card img{
+    height:125px;
+  }
+
+  .doodle{
+    font-size:20px;
+  }
+}
+
+/* =========================
+   VERY SMALL PHONE
+========================= */
+
+@media(max-width:430px){
+
+  .desktop-icons{
+    top:26px;
+    left:16px;
+  }
+
+  .today-widget{
+    top:20px;
+    right:14px;
+    width:140px;
+  }
+
+  .polaroid{
+    top:200px;
+    right:16px;
+    width:108px;
+  }
+
+  .polaroid img{
+    height:90px;
+  }
+
+  .system-widget{
+    right:14px;
+    bottom:70px;
+    width:140px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     LOCK SCREEN
+========================= -->
+
+<div id="lockScreen">
+
+  <div class="lock-time" id="lockTime">10:00 pm</div>
+
+  <div class="lock-date" id="lockDate">
+    08 October 2026
+  </div>
+
+  <div class="lock-small">
+    everything is quiet here.
+  </div>
+
+  <div class="lock-icon">
+    <div class="lock-shackle"></div>
+    <div class="lock-body"></div>
+  </div>
+
+  <div class="lock-photo">
+    <img
+      src="https://i.ibb.co.com/YBFGVBTC/b97c7c18112c3c81e49046d8d6748d1e.jpg"
+      alt="photo">
+  </div>
+
+  <div class="swipe-text">
+    swipe up to unlock
+  </div>
+
+  <div class="swipe-arrow"></div>
+
+</div>
+
+
+<!-- =========================
+     DESKTOP
+========================= -->
+
+<div id="desktop">
+
+  <!-- floating dust -->
+  <div class="dust d1"></div>
+  <div class="dust d2"></div>
+  <div class="dust d3"></div>
+  <div class="dust d4"></div>
+  <div class="dust d5"></div>
+
+  <!-- doodles -->
+  <div class="doodle one">✦</div>
+  <div class="doodle two">⌁</div>
+
+
+  <!-- =====================
+       ICONS
+  ====================== -->
+
+  <div class="desktop-icons">
+
+    <div class="desktop-icon" onclick="openWindow('files')">
+      <div class="icon-box">📁</div>
+      <div class="icon-name">My Files</div>
+    </div>
+
+    <div class="desktop-icon" onclick="showNotification()">
+      <div class="icon-box">🐱</div>
+      <div class="icon-name">Cat</div>
+    </div>
+
+    <div class="desktop-icon" onclick="openWindow('gallery')">
+      <div class="icon-box">🖼️</div>
+      <div class="icon-name">Gallery</div>
+    </div>
+
+    <div class="desktop-icon" onclick="openWindow('messages')">
+      <div class="icon-box">💬</div>
+      <div class="icon-name">Messages</div>
+    </div>
+
+    <div class="desktop-icon" onclick="openWindow('notes')">
+      <div class="icon-box">📝</div>
+      <div class="icon-name">Notes</div>
+    </div>
+
+    <div class="desktop-icon" onclick="openWindow('browser')">
+      <div class="icon-box">🌐</div>
+      <div class="icon-name">Browser</div>
+    </div>
+
+    <div class="desktop-icon" onclick="openWindow('calculator')">
+      <div class="icon-box">🧮</div>
+      <div class="icon-name">Calculator</div>
+    </div>
+
+    <div class="desktop-icon" onclick="openWindow('recycle')">
+      <div class="icon-box">🗑️</div>
+      <div class="icon-name">Recycle Bin</div>
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       TODAY
+  ====================== -->
+
+  <div class="today-widget">
+
+    <div class="today-title">
+      TODAY
+    </div>
+
+    <div class="today-date" id="todayDate">
+      08 Oct
+    </div>
+
+    <div class="today-line"></div>
+
+    <div class="today-row">
+      <span>time</span>
+      <span id="widgetTime">10:00 pm</span>
+    </div>
+
+    <div class="today-row">
+      <span>mood</span>
+      <span>calm</span>
+    </div>
+
+    <div class="today-row">
+      <span>status</span>
+      <span>online</span>
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       POLAROID
+  ====================== -->
+
+  <div class="polaroid">
+
+    <img
+      src="https://i.ibb.co.com/YBFGVBTC/b97c7c18112c3c81e49046d8d6748d1e.jpg"
+      alt="photo">
+
+  </div>
+
+
+  <!-- =====================
+       SYSTEM STATUS
+  ====================== -->
+
+  <div class="system-widget">
+
+    <div class="system-title">
+      SYSTEM STATUS
+    </div>
+
+    <div class="status-row">
+      <span>Wi-Fi</span>
+      <span>connected</span>
+    </div>
+
+    <div class="status-row">
+      <span>Battery</span>
+      <span>87%</span>
+    </div>
+
+    <div class="status-bar">
+      <div class="status-fill"></div>
+    </div>
+
+    <div class="status-row">
+      <span>Storage</span>
+      <span>64%</span>
+    </div>
+
+    <div class="status-bar">
+      <div class="status-fill storage"></div>
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       TASKBAR
+  ====================== -->
+
+  <div class="taskbar">
+
+    <button class="start-btn">
+      ▦
+    </button>
+
+    <div class="taskbar-clock">
+      <div id="taskTime">10:00 pm</div>
+      <div id="taskDate">08/10/2026</div>
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       NOTIFICATION
+  ====================== -->
+
+  <div
+    class="notification"
+    id="notification"
+    onclick="openChatFromNotification(event)"
+  >
+
+    <img
+      class="notification-avatar"
+      src="https://i.ibb.co/7JwgzdsW/4e7fe4c9d158030025a94d2a60b98cff.jpg"
+      alt="Issac">
+
+    <div class="notification-body">
+
+      <div class="notification-name">
+        Issac
+      </div>
+
+      <div class="notification-text">
+        Hey
+      </div>
+
+    </div>
+
+    <button
+      class="notification-close"
+      onclick="hideNotification(event)"
+    >
+      ×
+    </button>
+
+  </div>
+
+
+  <!-- =====================
+       MY FILES
+  ====================== -->
+
+  <div class="window" id="files">
+
+    <div class="window-header">
+      <span>My Files</span>
+
+      <div class="window-buttons">
+        <button onclick="minimizeWindow('files')">−</button>
+        <button onclick="closeWindow('files')">×</button>
+      </div>
+    </div>
+
+    <div class="window-content">
+
+      <div class="file-item"
+           onclick="openWindow('gallery')">
+        🖼️ Photos
+      </div>
+
+      <div class="file-item"
+           onclick="openWindow('notes')">
+        📝 Notes
+      </div>
+
+      <div class="file-item"
+           onclick="openWindow('secret')">
+        🔒 DO_NOT_OPEN
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       GALLERY
+  ====================== -->
+
+  <div class="window" id="gallery">
+
+    <div class="window-header">
+
+      <span>Gallery</span>
+
+      <div class="window-buttons">
+        <button onclick="minimizeWindow('gallery')">−</button>
+        <button onclick="closeWindow('gallery')">×</button>
+      </div>
+
+    </div>
+
+    <div class="window-content">
+
+      <div class="gallery">
+
+        <div class="gallery-card">
+          <img
+            src="https://i.ibb.co.com/23ZvnDn4/8892d58827ddd1e601a6cd52d7d812e7.jpg"
+            alt="photo 1">
+        </div>
+
+        <div class="gallery-card">
+          <img
+            src="https://i.ibb.co.com/msrsP4M/ab06f1724a069f0b5c2140f86c694a14.jpg"
+            alt="photo 2">
+        </div>
+
+        <div class="gallery-card">
+          <img
+            src="https://i.ibb.co.com/gND5qNm/a77ea4d70ae754716aa4dcb72460ab5e.jpg"
+            alt="photo 3">
+        </div>
+
+        <div class="gallery-card">
+          <img
+            src="https://i.ibb.co.com/YBFGVBTC/b97c7c18112c3c81e49046d8d6748d1e.jpg"
+            alt="photo 4">
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       MESSAGES
+  ====================== -->
+
+  <div class="window" id="messages">
+
+    <div class="window-header">
+
+      <span>Messages</span>
+
+      <div class="window-buttons">
+        <button onclick="minimizeWindow('messages')">−</button>
+        <button onclick="closeWindow('messages')">×</button>
+      </div>
+
+    </div>
+
+    <div class="window-content">
+
+      <div class="file-item"
+           onclick="openWindow('issacChat')">
+        Issac
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       ISSAC CHAT
+  ====================== -->
+
+  <div class="window" id="issacChat">
+
+    <div class="window-header">
+
+      <span>Messages</span>
+
+      <div class="window-buttons">
+        <button onclick="minimizeWindow('issacChat')">−</button>
+        <button onclick="closeWindow('issacChat')">×</button>
+      </div>
+
+    </div>
+
+    <div class="window-content">
+
+      <div class="chat-profile">
+
+        <img
+          class="chat-avatar"
+          src="https://i.ibb.co/7JwgzdsW/4e7fe4c9d158030025a94d2a60b98cff.jpg"
+          alt="Issac">
+
+        <div class="chat-name">
+          Issac
+        </div>
+
+      </div>
+
+      <div class="chat-bubble">
+        Hi
+      </div>
+
+      <div class="chat-bubble">
+        Did you have a good day?
+      </div>
+
+      <div class="chat-bubble">
+        Thank you for always being by my side.
+      </div>
+
+      <div class="chat-bubble">
+        I adore you
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       NOTES
+  ====================== -->
+
+  <div class="window" id="notes">
+
+    <div class="window-header">
+
+      <span>Notes</span>
+
+      <div class="window-buttons">
+        <button onclick="minimizeWindow('notes')">−</button>
+        <button onclick="closeWindow('notes')">×</button>
+      </div>
+
+    </div>
+
+    <div class="window-content">
+
+      <h2>little note</h2>
+
+      <p>
+        I may not always know the perfect words to say, but I hope you always feel how much I care about you. I want to be the kind of man who makes you feel safe, appreciated, and loved, not just through words, but through the little things I do for you every day.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       BROWSER
+  ====================== -->
+
+  <div class="window" id="browser">
+
+    <div class="window-header">
+
+      <span>Browser</span>
+
+      <div class="window-buttons">
+        <button onclick="minimizeWindow('browser')">−</button>
+        <button onclick="closeWindow('browser')">×</button>
+      </div>
+
+    </div>
+
+    <div class="window-content">
+
+      <h2>Nothing to see here.</h2>
+
+      <p>
+        You already found the important part.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       CALCULATOR
+  ====================== -->
+
+  <div class="window" id="calculator">
+
+    <div class="window-header">
+
+      <span>Calculator</span>
+
+      <div class="window-buttons">
+        <button onclick="minimizeWindow('calculator')">−</button>
+        <button onclick="closeWindow('calculator')">×</button>
+      </div>
+
+    </div>
+
+    <div class="window-content">
+
+      <h2>Calculator</h2>
+
+      <p>
+        1 + 1 = 2
+      </p>
+
+      <p style="margin-top:15px;">
+        You + me = something worth keeping.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       RECYCLE BIN
+  ====================== -->
+
+  <div class="window" id="recycle">
+
+    <div class="window-header">
+
+      <span>Recycle Bin</span>
+
+      <div class="window-buttons">
+        <button onclick="minimizeWindow('recycle')">−</button>
+        <button onclick="closeWindow('recycle')">×</button>
+      </div>
+
+    </div>
+
+    <div class="window-content">
+
+      <h2>It's empty.</h2>
+
+      <p>
+        Nothing here deserves to be thrown away.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       SECRET
+  ====================== -->
+
+  <div class="window" id="secret">
+
+    <div class="window-header">
+
+      <span>DO_NOT_OPEN</span>
+
+      <div class="window-buttons">
+        <button onclick="closeWindow('secret')">×</button>
+      </div>
+
+    </div>
+
+    <div class="window-content">
+
+      <h2>Password required</h2>
+
+      <input
+        id="passwordInput"
+        type="password"
+        placeholder="enter password"
+        style="
+          width:100%;
+          padding:13px;
+          border:0;
+          border-radius:12px;
+          background:#eadbd7;
+          outline:none;
+        "
+      >
+
+      <button
+        onclick="checkPassword()"
+        style="
+          margin-top:12px;
+          padding:11px 18px;
+          border:0;
+          border-radius:12px;
+          background:#9e817b;
+          color:white;
+        "
+      >
+        unlock
+      </button>
+
+      <p
+        id="wrongPassword"
+        style="
+          margin-top:12px;
+          font-size:12px;
+          display:none;
+        "
+      >
+        wrong password.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <!-- =====================
+       LOVE LETTER
+  ====================== -->
+
+  <div class="window" id="loveLetter">
+
+    <div class="window-header">
+
+      <span>Love Letter</span>
+
+      <div class="window-buttons">
+        <button onclick="minimizeWindow('loveLetter')">−</button>
+        <button onclick="closeWindow('loveLetter')">×</button>
+      </div>
+
+    </div>
+
+    <div class="window-content love-letter">
+
+      <h2>you found it.</h2>
+
+      <p>
+        I made this little place for you because I wanted you to have something that reminds you how deeply you are loved. You bring a kind of warmth into my life that I never knew I needed, and even in the quietest moments, somehow my thoughts always find their way back to you. I hope you always know how precious you are to me, how much I admire you, and how grateful I am to have you in my life. If I could give you one thing, it would be the ability to see yourself through my eyes, so you could understand just how beautiful you truly are to me.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   CLOCK
+========================= */
+
+function updateClock(){
+
+  const now = new Date();
+
+  let hours = now.getHours();
+  const minutes =
+    String(now.getMinutes()).padStart(2,"0");
+
+  const ampm = hours >= 12 ? "pm" : "am";
+
+  hours = hours % 12 || 12;
+
+  const time =
+    `${String(hours).padStart(2,"0")}:${minutes} ${ampm}`;
+
+  const day =
+    String(now.getDate()).padStart(2,"0");
+
+  const month =
+    now.toLocaleString("en-US",{month:"short"});
+
+  const fullMonth =
+    now.toLocaleString("en-US",{month:"long"});
+
+  const year = now.getFullYear();
+
+  document.getElementById("lockTime").textContent = time;
+  document.getElementById("widgetTime").textContent = time;
+  document.getElementById("taskTime").textContent = time;
+
+  document.getElementById("todayDate").textContent =
+    `${day} ${month}`;
+
+  document.getElementById("taskDate").textContent =
+    `${day}/${String(now.getMonth()+1).padStart(2,"0")}/${year}`;
+
+  document.getElementById("lockDate").textContent =
+    `${day} ${fullMonth} ${year}`;
+}
+
+updateClock();
+setInterval(updateClock,1000);
+
+
+/* =========================
+   SWIPE TO UNLOCK
+========================= */
+
+const lockScreen =
+  document.getElementById("lockScreen");
+
+let startY = null;
+
+function unlock(){
+  lockScreen.style.transform =
+    "translateY(-100%)";
+}
+
+lockScreen.addEventListener(
+  "touchstart",
+  function(e){
+    startY = e.touches[0].clientY;
+  },
+  {passive:true}
+);
+
+lockScreen.addEventListener(
+  "touchmove",
+  function(e){
+
+    if(startY === null) return;
+
+    const currentY =
+      e.touches[0].clientY;
+
+    const distance =
+      startY - currentY;
+
+    if(distance > 35){
+      unlock();
+      startY = null;
+    }
+
+  },
+  {passive:true}
+);
+
+lockScreen.addEventListener(
+  "touchend",
+  function(){
+    startY = null;
+  }
+);
+
+
+/* =========================
+   WINDOWS
+========================= */
+
+function openWindow(id){
+
+  const win =
+    document.getElementById(id);
+
+  if(!win) return;
+
+  win.classList.add("show");
+
+}
+
+function closeWindow(id){
+
+  const win =
+    document.getElementById(id);
+
+  if(!win) return;
+
+  win.classList.remove("show");
+
+}
+
+function minimizeWindow(id){
+
+  const win =
+    document.getElementById(id);
+
+  if(!win) return;
+
+  win.classList.remove("show");
+
+}
+
+
+/* =========================
+   PASSWORD
+========================= */
+
+function checkPassword(){
+
+  const input =
+    document.getElementById("passwordInput");
+
+  const wrong =
+    document.getElementById("wrongPassword");
+
+  if(input.value === "iloveyou"){
+
+    closeWindow("secret");
+    openWindow("loveLetter");
+
+    input.value = "";
+    wrong.style.display = "none";
+
+  }else{
+
+    wrong.style.display = "block";
+
+  }
+}
+
+
+/* =========================
+   CAT NOTIFICATION
+========================= */
+
+function showNotification(){
+
+  document
+    .getElementById("notification")
+    .classList.add("show");
+
+}
+
+function hideNotification(event){
+
+  event.stopPropagation();
+
+  document
+    .getElementById("notification")
+    .classList.remove("show");
+
+}
+
+function openChatFromNotification(event){
+
+  if(
+    event.target.closest(".notification-close")
+  ){
+    return;
+  }
+
+  document
+    .getElementById("notification")
+    .classList.remove("show");
+
+  openWindow("issacChat");
+
+}
+
+</script>
+
+</body>
+</html>
